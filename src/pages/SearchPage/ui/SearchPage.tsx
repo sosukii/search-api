@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ItemCard } from '@entities/ItemCard';
 import { Item } from '@shared/api/items';
+import { Loader } from '@shared/ui/Loader/Loader';
 import css from './style.module.css';
 import '@shared/styles/global.css';
 
@@ -27,7 +28,7 @@ export class SearchPage extends Component<Props> {
     const { items } = this.props;
     return (
       <div className="container">
-        <div className={css.wrapper}>{items && this.renderItems()}</div>
+        <div className={css.wrapper}>{items.length > 1 ? this.renderItems() : <Loader />}</div>
       </div>
     );
   }

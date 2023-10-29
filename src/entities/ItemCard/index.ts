@@ -1,1 +1,1 @@
-export { ItemCard } from './ui';
+export { ItemCard } from './ui/ItemCard';

@@ -30,7 +30,7 @@ export default class App extends Component {
 
   async componentDidMount() {
     const response = await fetchItems();
-    this.setState({ items: response?.data.data });
+    setTimeout(() => this.setState({ items: response?.data.data }), 3000);
   }
 
   render() {
