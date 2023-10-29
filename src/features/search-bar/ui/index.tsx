@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import { InputSearch } from '@shared/ui/InputSearch';
-import { Button } from '@shared/ui/Button';
+import { InputSearch } from '@shared/ui/inputSearch/Index';
+import { Button } from '@shared/ui/button/Index';
 import css from './style.module.css';
 
 interface Props {
-  onInputNewName?: () => void;
+  onInputNewName?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickNewName?: () => void;
 }
 export class SearchBar extends Component<Props> {
