@@ -28,3 +28,9 @@ button {
 button:hover {
   border-color: #646cff;
 }
+
+.container {
+  max-width: 1576px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
