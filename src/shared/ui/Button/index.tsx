@@ -5,7 +5,7 @@ interface MyProps {
   children: ReactNode;
 }
 
-class Button extends Component<MyProps> {
+export class Button extends Component<MyProps> {
   static defaultProps = {
     color: 'blue',
   };
@@ -16,4 +16,4 @@ class Button extends Component<MyProps> {
   }
 }
 
-export default Button;
+// export default Button;

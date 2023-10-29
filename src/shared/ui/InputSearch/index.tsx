@@ -4,7 +4,7 @@ interface State {
   searchValue: string;
 }
 
-class Search extends Component {
+export class InputSearch extends Component {
   state: State = {
     searchValue: '',
   };
@@ -25,4 +25,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+// export default Search;
