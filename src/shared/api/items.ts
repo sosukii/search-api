@@ -34,11 +34,14 @@ interface ItemsResponse {
 
 export async function fetchItems(
   limit: number | string = 10,
-  page: number | string = 1
+  page: number | string = 1,
+  animeTitle?: string
 ): Promise<ItemsResponse | null> {
   try {
+    const tail = animeTitle ? `letter=g` : '';
+
     const response: ItemsResponse = await axios({
-      url: `${BASE_URL}?limit=${limit}&page=${page}`,
+      url: `${BASE_URL}?limit=${limit}&page=${page}&` + tail,
       maxBodyLength: Infinity,
       headers: {},
       method: 'get',
