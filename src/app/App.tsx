@@ -33,7 +33,6 @@ export default class App extends Component {
   };
   fetchByName = async () => {
     const { limit, page, userValue } = this.state;
-    if (userValue.length < 1) return;
 
     this.setState({ items: [] });
     this.setState({ isFetching: true });
