@@ -37,10 +37,10 @@
     "vite": "^4.4.5"
   },
   "lint-staged": {
-    "*.{js,ts,vue,scss,html,css}": [
+    "*.{js,ts,tsx,vue,scss,html,css}": [
       "prettier --write --config .prettierrc"
     ],
-    "*.{js,ts,vue}": [
+    "*.{js,ts,tsx,vue}": [
       "eslint --fix"
     ]
   }
