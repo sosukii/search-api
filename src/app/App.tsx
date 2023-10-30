@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Header } from '@widgets/header';
 import { SearchPage } from '@pages/SearchPage';
 import { fetchItems, Item } from '@shared/api/items';
+import { ErrorBoundary } from '@shared/ui/ErrorBoundary/ErrorBoundary';
 
 import '@shared/styles/global.css';
 
@@ -37,10 +38,10 @@ export default class App extends Component {
     const { items } = this.state;
 
     return (
-      <div>
+      <ErrorBoundary>
         <Header onInputNewName={this.handleInputName} onClickNewName={this.fetchByName} />
         <SearchPage items={items} />
-      </div>
+      </ErrorBoundary>
     );
   }
 }
