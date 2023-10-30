@@ -24,5 +24,3 @@ export class InputSearch extends Component {
     );
   }
 }
-
-// export default Search;
