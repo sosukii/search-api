@@ -39,7 +39,7 @@ export async function fetchItems(
 ): Promise<ItemsResponse | null> {
   try {
     const head = animeTitle ? SEARCH_URL : BASE_URL;
-    const tail = animeTitle ? `letter=${animeTitle}` : `limit=${limit}&page=${page}`;
+    const tail = animeTitle ? `q=${animeTitle}` : `limit=${limit}&page=${page}`;
 
     const response: ItemsResponse = await axios({
       url: `${head}?${tail}`,
