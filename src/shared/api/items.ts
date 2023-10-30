@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from './constants/constants';
+import { BASE_URL, SEARCH_URL } from './constants/constants';
 
 export interface Item {
   mal_id: number;
@@ -38,10 +38,11 @@ export async function fetchItems(
   animeTitle?: string
 ): Promise<ItemsResponse | null> {
   try {
-    const tail = animeTitle ? `letter=g` : '';
+    const head = animeTitle ? SEARCH_URL : BASE_URL;
+    const tail = animeTitle ? `letter=${animeTitle}` : `limit=${limit}&page=${page}`;
 
     const response: ItemsResponse = await axios({
-      url: `${BASE_URL}?limit=${limit}&page=${page}&` + tail,
+      url: `${head}?${tail}`,
       maxBodyLength: Infinity,
       headers: {},
       method: 'get',

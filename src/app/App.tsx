@@ -23,9 +23,11 @@ export default class App extends Component {
     const { limit, page, userValue } = this.state;
     if (userValue.length < 1) return;
 
+    this.setState({ items: [] });
     const response = await fetchItems(limit, page, userValue);
+
     if (response) {
-      this.setState({ items: response?.data.data });
+      setTimeout(() => this.setState({ items: response?.data.data }), 3000);
     }
   };
 

@@ -10,7 +10,12 @@ export class InputSearch extends Component<Props> {
     const { onChange } = this.props;
     return (
       <div>
-        <input className={css.input} type="text" onChange={onChange} />
+        <input
+          className={css.input}
+          type="text"
+          onChange={onChange}
+          placeholder="one first letter. For example: N"
+        />
       </div>
     );
   }
