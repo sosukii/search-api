@@ -28,7 +28,7 @@ export default class App extends Component {
   };
 
   handleInputName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ userValue: e.target.value });
+    this.setState({ userValue: e.target.value.trimStart().trimEnd() });
     this.setState({ inputValue: e.target.value });
   };
   fetchByName = async () => {
