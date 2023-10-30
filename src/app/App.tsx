@@ -11,6 +11,7 @@ type State = {
   isFetching: boolean;
   isResultEmpty: boolean;
   userValue: string;
+  inputValue: string;
   limit: string | number;
   page: string | number;
 };
@@ -21,6 +22,7 @@ export default class App extends Component {
     isFetching: false,
     isResultEmpty: false,
     userValue: '',
+    inputValue: '',
     limit: 10,
     page: 1,
   };
@@ -39,6 +41,7 @@ export default class App extends Component {
     const response = await fetchItems(limit, page, userValue);
 
     if (response?.data.data && response?.data.data.length > 0) {
+      localStorage.setItem('lastSearchString', this.state.userValue);
       setTimeout(() => {
         this.setState({ items: response?.data.data });
         this.setState({ isFetching: false });
@@ -50,9 +53,13 @@ export default class App extends Component {
   };
 
   async componentDidMount() {
+    const valueFromLocalStorage = localStorage.getItem('lastSearchString');
+
     this.setState({ isFetching: true });
 
-    const response = await fetchItems();
+    const response = valueFromLocalStorage
+      ? await fetchItems(10, 1, valueFromLocalStorage)
+      : await fetchItems();
     setTimeout(() => {
       this.setState({ items: response?.data.data });
       this.setState({ isFetching: false });

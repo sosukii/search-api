@@ -8,6 +8,8 @@ interface Props {
   onClickNewName?: () => void;
 }
 export class SearchBar extends Component<Props> {
+  // const valueFromLocalStorage = localStorage.getItem('lastSearchString');
+
   render() {
     const { onInputNewName, onClickNewName } = this.props;
     return (
