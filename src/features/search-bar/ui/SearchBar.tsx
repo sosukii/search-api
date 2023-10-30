@@ -6,15 +6,16 @@ import css from './style.module.css';
 interface Props {
   onInputNewName?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickNewName?: () => void;
+  inputValue: string;
 }
 export class SearchBar extends Component<Props> {
   // const valueFromLocalStorage = localStorage.getItem('lastSearchString');
 
   render() {
-    const { onInputNewName, onClickNewName } = this.props;
+    const { onInputNewName, onClickNewName, inputValue } = this.props;
     return (
       <div className={css.bar}>
-        <InputSearch onChange={onInputNewName} />
+        <InputSearch onChange={onInputNewName} inputValue={inputValue} />
         <Button onClick={onClickNewName}>Go search!</Button>
       </div>
     );

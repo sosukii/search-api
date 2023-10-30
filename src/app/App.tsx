@@ -29,6 +29,7 @@ export default class App extends Component {
 
   handleInputName = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ userValue: e.target.value });
+    this.setState({ inputValue: e.target.value });
   };
   fetchByName = async () => {
     const { limit, page, userValue } = this.state;
@@ -56,6 +57,7 @@ export default class App extends Component {
     const valueFromLocalStorage = localStorage.getItem('lastSearchString');
 
     this.setState({ isFetching: true });
+    this.setState({ inputValue: valueFromLocalStorage });
 
     const response = valueFromLocalStorage
       ? await fetchItems(10, 1, valueFromLocalStorage)
@@ -67,11 +69,15 @@ export default class App extends Component {
   }
 
   render() {
-    const { items, isFetching, isResultEmpty } = this.state;
+    const { items, isFetching, isResultEmpty, inputValue } = this.state;
 
     return (
       <ErrorBoundary>
-        <Header onInputNewName={this.handleInputName} onClickNewName={this.fetchByName} />
+        <Header
+          onInputNewName={this.handleInputName}
+          onClickNewName={this.fetchByName}
+          inputValue={inputValue}
+        />
         <SearchPage isFetching={isFetching} isResultEmpty={isResultEmpty} items={items} />
       </ErrorBoundary>
     );
