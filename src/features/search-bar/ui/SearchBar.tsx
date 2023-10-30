@@ -9,8 +9,6 @@ interface Props {
   inputValue: string;
 }
 export class SearchBar extends Component<Props> {
-  // const valueFromLocalStorage = localStorage.getItem('lastSearchString');
-
   render() {
     const { onInputNewName, onClickNewName, inputValue } = this.props;
     return (
