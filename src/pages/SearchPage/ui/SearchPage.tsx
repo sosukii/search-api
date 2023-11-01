@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { FC } from 'react';
 import { ItemCard } from '@entities/ItemCard';
 import { Item } from '@shared/api/items';
 import { Loader } from '@shared/ui/Loader/Loader';
@@ -10,9 +10,10 @@ interface Props {
   isFetching: boolean;
   isResultEmpty: boolean;
 }
-export class SearchPage extends Component<Props> {
-  renderItems() {
-    return this.props.items.map((item: Item) => (
+
+export const SearchPage: FC<Props> = ({ items, isFetching, isResultEmpty }) => {
+  const renderItems = () => {
+    return items.map((item: Item) => (
       <ItemCard
         key={item.mal_id}
         mal_id={item.mal_id}
@@ -24,22 +25,19 @@ export class SearchPage extends Component<Props> {
         images={item.images}
       />
     ));
-  }
+  };
 
-  render() {
-    const { isFetching, isResultEmpty } = this.props;
-    return (
-      <div className="container">
-        <div className={css.wrapper}>
-          {isFetching ? (
-            <Loader />
-          ) : !isResultEmpty ? (
-            this.renderItems()
-          ) : (
-            'We have nothing for this request...'
-          )}
-        </div>
+  return (
+    <div className="container">
+      <div className={css.wrapper}>
+        {isFetching ? (
+          <Loader />
+        ) : !isResultEmpty ? (
+          renderItems()
+        ) : (
+          'We have nothing for this request...'
+        )}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
