@@ -7,6 +7,7 @@ import '@shared/styles/global.css';
 interface Props {
   onInputNewName?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClickNewName?: () => void;
+  inputValue: string;
 }
 interface State {
   hasError: boolean;
@@ -29,6 +30,7 @@ export class Header extends Component<Props, State> {
           <SearchBar
             onInputNewName={this.props.onInputNewName}
             onClickNewName={this.props.onClickNewName}
+            inputValue={this.props.inputValue}
           />
           <Button onClick={this.handleError}>Check Error Boundary</Button>
         </div>

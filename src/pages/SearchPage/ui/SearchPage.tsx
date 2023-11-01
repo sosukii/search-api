@@ -7,6 +7,8 @@ import '@shared/styles/global.css';
 
 interface Props {
   items: Item[];
+  isFetching: boolean;
+  isResultEmpty: boolean;
 }
 export class SearchPage extends Component<Props> {
   renderItems() {
@@ -25,10 +27,18 @@ export class SearchPage extends Component<Props> {
   }
 
   render() {
-    const { items } = this.props;
+    const { isFetching, isResultEmpty } = this.props;
     return (
       <div className="container">
-        <div className={css.wrapper}>{items.length > 1 ? this.renderItems() : <Loader />}</div>
+        <div className={css.wrapper}>
+          {isFetching ? (
+            <Loader />
+          ) : !isResultEmpty ? (
+            this.renderItems()
+          ) : (
+            'We have nothing for this request...'
+          )}
+        </div>
       </div>
     );
   }

@@ -15,5 +15,3 @@ export class Button extends Component<MyProps> {
     return <button className={color}>{children}</button>;
   }
 }
-
-// export default Button;
