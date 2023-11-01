@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { FC, useState } from 'react';
 import { SearchBar } from '@features/search-bar';
 import { Button } from '@shared/ui/Button/Button';
 import css from './style.module.css';
@@ -9,32 +9,26 @@ interface Props {
   onClickNewName?: () => void;
   inputValue: string;
 }
-interface State {
-  hasError: boolean;
-}
 
-export class Header extends Component<Props, State> {
-  state = { hasError: false };
+export const Header: FC<Props> = ({ onInputNewName, onClickNewName, inputValue }) => {
+  const [hasError, setHasError] = useState(false);
 
-  handleError = () => {
-    this.setState({ hasError: true });
-  };
+  const handleHasError = () => setHasError(true);
 
-  render() {
-    if (this.state.hasError) {
-      throw new Error('You are testing Error Boundary! It is worked~');
-    }
-    return (
-      <header className={css.header}>
-        <div className="container">
-          <SearchBar
-            onInputNewName={this.props.onInputNewName}
-            onClickNewName={this.props.onClickNewName}
-            inputValue={this.props.inputValue}
-          />
-          <Button onClick={this.handleError}>Check Error Boundary</Button>
-        </div>
-      </header>
-    );
+  if (hasError) {
+    throw new Error('You are testing Error Boundary! It is worked~');
   }
-}
+
+  return (
+    <header className={css.header}>
+      <div className="container">
+        <SearchBar
+          onInputNewName={onInputNewName}
+          onClickNewName={onClickNewName}
+          inputValue={inputValue}
+        />
+        <Button onClick={handleHasError}>Check Error Boundary</Button>
+      </div>
+    </header>
+  );
+};
