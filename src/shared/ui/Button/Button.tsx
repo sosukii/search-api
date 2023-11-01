@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { ReactNode, FC } from 'react';
 
 interface Props {
   color?: string;
@@ -6,17 +6,10 @@ interface Props {
   onClick?: () => void;
 }
 
-export class Button extends Component<Props> {
-  static defaultProps = {
-    color: 'blue',
-  };
-
-  render() {
-    const { color, children, onClick } = this.props;
-    return (
-      <button className={color} onClick={onClick}>
-        {children}
-      </button>
-    );
-  }
-}
+export const Button: FC<Props> = ({ color, onClick, children }) => {
+  return (
+    <button className={color} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
