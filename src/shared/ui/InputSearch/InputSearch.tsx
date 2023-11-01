@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { FC } from 'react';
 import css from './style.module.css';
 
 interface Props {
@@ -6,19 +6,14 @@ interface Props {
   inputValue: string;
 }
 
-export class InputSearch extends Component<Props> {
-  render() {
-    const { onChange, inputValue } = this.props;
-    return (
-      <div>
-        <input
-          className={css.input}
-          type="text"
-          onChange={onChange}
-          placeholder="Naruto"
-          value={inputValue}
-        />
-      </div>
-    );
-  }
-}
+export const InputSearch: FC<Props> = ({ onChange, inputValue }) => {
+  return (
+    <input
+      className={css.input}
+      type="text"
+      onChange={onChange}
+      placeholder="Naruto"
+      value={inputValue}
+    />
+  );
+};
