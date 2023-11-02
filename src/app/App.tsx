@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Header } from '@widgets/header';
 import { SearchPage } from '@pages/SearchPage';
 import { fetchItems, Item } from '@shared/api/items';
@@ -6,79 +6,72 @@ import { ErrorBoundary } from '@shared/ui/ErrorBoundary/ErrorBoundary';
 
 import '@shared/styles/global.css';
 
-type State = {
-  items: Item[];
-  isFetching: boolean;
-  isResultEmpty: boolean;
-  userValue: string;
-  inputValue: string;
-  limit: string | number;
-  page: string | number;
-};
+const App: FC = () => {
+  const [items, setItems] = useState<Item[]>([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [isResultEmpty, setIsResultEmpty] = useState(false);
+  const [userValue, setUserValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-export default class App extends Component {
-  state: State = {
-    items: [],
-    isFetching: false,
-    isResultEmpty: false,
-    userValue: '',
-    inputValue: '',
-    limit: 10,
-    page: 1,
+  const limit = 10;
+  const page = 1;
+
+  const handleInputName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserValue(e.target.value.trimStart().trimEnd());
+    setInputValue(e.target.value);
   };
 
-  handleInputName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ userValue: e.target.value.trimStart().trimEnd() });
-    this.setState({ inputValue: e.target.value });
-  };
-  fetchByName = async () => {
-    const { limit, page, userValue } = this.state;
-
-    this.setState({ items: [] });
-    this.setState({ isFetching: true });
-    this.setState({ isResultEmpty: false });
+  const fetchByName = async () => {
+    setItems([]);
+    setIsFetching(true);
+    setIsResultEmpty(false);
 
     const response = await fetchItems(limit, page, userValue);
 
     if (response?.data.data && response?.data.data.length > 0) {
-      localStorage.setItem('lastSearchString', this.state.userValue);
+      localStorage.setItem('lastSearchString', userValue);
       setTimeout(() => {
-        this.setState({ items: response?.data.data });
-        this.setState({ isFetching: false });
+        setItems(response?.data.data);
+        setIsFetching(false);
       }, 3000);
     } else {
-      this.setState({ isFetching: false });
-      this.setState({ isResultEmpty: true });
+      setIsFetching(false);
+      setIsResultEmpty(true);
     }
   };
 
-  async componentDidMount() {
-    const valueFromLocalStorage = localStorage.getItem('lastSearchString');
+  useEffect(() => {
+    const fetchData = async () => {
+      const valueFromLocalStorage: string = localStorage.getItem('lastSearchString')!;
 
-    this.setState({ isFetching: true });
-    this.setState({ inputValue: valueFromLocalStorage });
+      setIsFetching(true);
+      setInputValue(valueFromLocalStorage);
 
-    const response = valueFromLocalStorage
-      ? await fetchItems(10, 1, valueFromLocalStorage)
-      : await fetchItems();
-    setTimeout(() => {
-      this.setState({ items: response?.data.data });
-      this.setState({ isFetching: false });
-    }, 3000);
-  }
+      const response = valueFromLocalStorage
+        ? await fetchItems(10, 1, valueFromLocalStorage)
+        : await fetchItems();
 
-  render() {
-    const { items, isFetching, isResultEmpty, inputValue } = this.state;
+      setTimeout(() => {
+        if (response) {
+          setItems(response?.data.data);
+          setIsFetching(false);
+        }
+      }, 3000);
+    };
 
-    return (
-      <ErrorBoundary>
-        <Header
-          onInputNewName={this.handleInputName}
-          onClickNewName={this.fetchByName}
-          inputValue={inputValue}
-        />
-        <SearchPage isFetching={isFetching} isResultEmpty={isResultEmpty} items={items} />
-      </ErrorBoundary>
-    );
-  }
-}
+    fetchData();
+  }, []);
+
+  return (
+    <ErrorBoundary>
+      <Header
+        onInputNewName={handleInputName}
+        onClickNewName={fetchByName}
+        inputValue={inputValue}
+      />
+      <SearchPage isFetching={isFetching} isResultEmpty={isResultEmpty} items={items} />
+    </ErrorBoundary>
+  );
+};
+
+export default App;
