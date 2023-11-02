@@ -49,7 +49,7 @@ export async function fetchItems(
     });
 
     return response;
-  } catch (e) {
+  } catch (error) {
     return null;
   }
 }

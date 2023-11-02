@@ -2,7 +2,7 @@ import { FC } from 'react';
 import css from './style.module.css';
 
 interface Props {
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inputValue: string;
 }
 

@@ -4,7 +4,7 @@ import { Button } from '@shared/ui/Button/Button';
 import css from './style.module.css';
 
 interface Props {
-  onInputNewName?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onInputNewName?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickNewName?: () => void;
   inputValue: string;
 }

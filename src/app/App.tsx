@@ -16,9 +16,9 @@ const App: FC = () => {
   const limit = 10;
   const page = 1;
 
-  const handleInputName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserValue(e.target.value.trimStart().trimEnd());
-    setInputValue(e.target.value);
+  const handleInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserValue(event.target.value.trimStart().trimEnd());
+    setInputValue(event.target.value);
   };
 
   const fetchByName = async () => {
@@ -48,7 +48,7 @@ const App: FC = () => {
       setInputValue(valueFromLocalStorage);
 
       const response = valueFromLocalStorage
-        ? await fetchItems(10, 1, valueFromLocalStorage)
+        ? await fetchItems(limit, page, valueFromLocalStorage)
         : await fetchItems();
 
       setTimeout(() => {

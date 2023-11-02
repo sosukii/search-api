@@ -5,7 +5,7 @@ import css from './style.module.css';
 import '@shared/styles/global.css';
 
 interface Props {
-  onInputNewName?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onInputNewName?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickNewName?: () => void;
   inputValue: string;
 }
