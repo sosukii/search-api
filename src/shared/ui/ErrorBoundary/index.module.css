@@ -1,13 +1,13 @@
 .body {
-  width: 100vw;
-  height: 100vh;
-  background: -webkit-linear-gradient(90deg, #5cf374, #00c7ff, #a763da);
-  background: linear-gradient(90deg, #5cf374, #00c7ff, #a763da);
   display: flex;
-  gap: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+  background: -webkit-linear-gradient(90deg, #5cf374, #00c7ff, #a763da);
+  background: linear-gradient(90deg, #5cf374, #00c7ff, #a763da);
+  width: 100vw;
+  height: 100vh;
   font-size: 1.5rem;
   text-align: center;
 }

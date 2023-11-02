@@ -1,11 +1,11 @@
 .input {
-  border: 2px solid orange;
+  transition: 0.2s;
   outline: none;
+  border: 2px solid orange;
   border-radius: 6px;
+  padding: 0px 10px;
   width: 220px;
   height: 25px;
-  padding: 0px 10px;
-  transition: 0.2s;
 }
 
 .input:hover {

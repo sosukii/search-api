@@ -2,16 +2,16 @@
   position: absolute;
   top: 50%;
   left: 40%;
-  margin-left: 10%;
   transform: translate3d(-50%, -50%, 0);
+  margin-left: 10%;
 }
 .dot {
-  width: 24px;
-  height: 24px;
-  background: #3ac;
-  border-radius: 100%;
   display: inline-block;
   animation: slide 1s infinite;
+  border-radius: 100%;
+  background: #3ac;
+  width: 24px;
+  height: 24px;
 }
 .dot:nth-child(1) {
   animation-delay: 0.1s;
@@ -38,8 +38,8 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.3;
     transform: scale(2);
+    opacity: 0.3;
   }
   100% {
     transform: scale(1);
@@ -50,8 +50,8 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.3;
     transform: scale(2);
+    opacity: 0.3;
   }
   100% {
     transform: scale(1);
@@ -62,8 +62,8 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.3;
     transform: scale(2);
+    opacity: 0.3;
   }
   100% {
     transform: scale(1);
@@ -74,8 +74,8 @@
     transform: scale(1);
   }
   50% {
-    opacity: 0.3;
     transform: scale(2);
+    opacity: 0.3;
   }
   100% {
     transform: scale(1);
