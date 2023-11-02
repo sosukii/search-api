@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { SearchBar } from '@features/search-bar';
-import { Button } from '@shared/ui/Button/Button';
+import { Button } from '@shared/ui/Button';
 import css from './style.module.css';
 import '@shared/styles/global.css';
 

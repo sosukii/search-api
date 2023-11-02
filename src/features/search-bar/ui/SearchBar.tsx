@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { InputSearch } from '@shared/ui/InputSearch/InputSearch';
-import { Button } from '@shared/ui/Button/Button';
+import { InputSearch } from '@shared/ui/InputSearch';
+import { Button } from '@shared/ui/Button';
 import css from './style.module.css';
 
 interface Props {

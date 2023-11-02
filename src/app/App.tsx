@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { Header } from '@widgets/header';
 import { SearchPage } from '@pages/SearchPage';
 import { fetchItems, Item } from '@shared/api/items';
-import { ErrorBoundary } from '@shared/ui/ErrorBoundary/ErrorBoundary';
+import { ErrorBoundary } from '@shared/ui/ErrorBoundary';
 
 import '@shared/styles/global.css';
 

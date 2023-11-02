@@ -29,7 +29,6 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className={css.body}>
           <h2>Oops..! Looks like something gone wrong... 🐈 (reload page!)</h2>
-
           <button onClick={() => window.location.reload()}>I got it~ Reload this page!</button>
         </div>
       );

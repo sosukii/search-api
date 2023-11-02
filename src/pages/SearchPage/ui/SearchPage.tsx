@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ItemCard } from '@entities/ItemCard';
+import { Loader } from '@shared/ui/Loader';
 import { Item } from '@shared/api/items';
-import { Loader } from '@shared/ui/Loader/Loader';
 import css from './style.module.css';
 import '@shared/styles/global.css';
 
