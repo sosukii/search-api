@@ -2,11 +2,14 @@ import { FC, useState, useEffect } from 'react';
 import { Button } from '@shared/ui/Button';
 import { Pagination as PaginationInterface } from '@shared/api/items';
 import { generateArray } from '@shared/lib/generateArray';
+import { Dropdown } from '@shared/ui/Dropdown';
 
 interface Props {
   data: PaginationInterface;
   currentPage: number;
   setCurrentPage: (number: number) => void;
+  setItemsPerPage: (number: number) => void;
+  itemsPerPage: number;
   onClickPrev?: () => void;
   onClickNext?: () => void;
 }
@@ -15,6 +18,8 @@ export const Pagination: FC<Props> = ({
   data,
   currentPage,
   setCurrentPage,
+  setItemsPerPage,
+  itemsPerPage,
   onClickPrev,
   onClickNext,
 }) => {
@@ -63,6 +68,10 @@ export const Pagination: FC<Props> = ({
       >
         ˃
       </Button>
+      <div>
+        <p>Items per page:</p>
+        <Dropdown defaultValue={itemsPerPage} onSelect={setItemsPerPage} options={[10, 20, 30]} />
+      </div>
     </div>
   );
 };

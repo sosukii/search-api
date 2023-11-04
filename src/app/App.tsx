@@ -8,6 +8,7 @@ import '@shared/styles/global.css';
 
 const App: FC = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pagination, setPagination] = useState<PaginationInterface>({
     currentPage: 1,
@@ -25,15 +26,16 @@ const App: FC = () => {
   const [userValue, setUserValue] = useState('');
   const [inputValue, setInputValue] = useState('');
 
-  const limit = 10;
-
   useEffect(() => {
     fetchByName();
-  }, [currentPage]);
+  }, [currentPage, itemsPerPage]);
 
   const handleInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserValue(event.target.value.trimStart().trimEnd());
     setInputValue(event.target.value);
+  };
+  const handleItemsPerPageChange = (value: number) => {
+    setItemsPerPage(value);
   };
 
   const prevPageHandler = () => {
@@ -55,7 +57,7 @@ const App: FC = () => {
     const prevValue = localStorage.getItem('lastSearchString');
     const search = prevValue ? prevValue : userValue;
 
-    const response = await fetchItems(limit, currentPage, search);
+    const response = await fetchItems(itemsPerPage, currentPage, search);
 
     if (response?.data.data && response?.data.data.length > 0) {
       localStorage.setItem('lastSearchString', userValue);
@@ -81,6 +83,8 @@ const App: FC = () => {
         isFetching={isFetching}
         isResultEmpty={isResultEmpty}
         items={items}
+        itemsPerPage={itemsPerPage}
+        setItemsPerPage={handleItemsPerPageChange}
         pagination={pagination}
         currentPage={currentPage}
         setCurrentPage={setPageHandler}

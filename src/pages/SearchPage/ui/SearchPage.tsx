@@ -8,6 +8,8 @@ import { Pagination } from '@features/pagination';
 
 interface Props {
   items: Item[];
+  itemsPerPage: number;
+  setItemsPerPage: (number: number) => void;
   pagination: PaginationInterface;
   isFetching: boolean;
   isResultEmpty: boolean;
@@ -19,6 +21,8 @@ interface Props {
 
 export const SearchPage: FC<Props> = ({
   items,
+  itemsPerPage,
+  setItemsPerPage,
   pagination,
   isFetching,
   isResultEmpty,
@@ -44,13 +48,18 @@ export const SearchPage: FC<Props> = ({
 
   return (
     <div className="container">
-      <Pagination
-        data={pagination}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        onClickNext={onClickNext}
-        onClickPrev={onClickPrev}
-      />
+      {!isFetching && !isResultEmpty && (
+        <Pagination
+          data={pagination}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          itemsPerPage={itemsPerPage}
+          setItemsPerPage={setItemsPerPage}
+          onClickNext={onClickNext}
+          onClickPrev={onClickPrev}
+        />
+      )}
+
       <div className={css.wrapper}>
         {isFetching ? (
           <Loader />
