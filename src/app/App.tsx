@@ -1,24 +1,50 @@
 import { FC, useEffect, useState } from 'react';
-import { Header } from '@widgets/header';
 import { SearchPage } from '@pages/SearchPage';
-import { fetchItems, Item } from '@shared/api/items';
+import { Header } from '@widgets/header';
 import { ErrorBoundary } from '@shared/ui/ErrorBoundary';
+import { fetchItems, Item, Pagination as PaginationInterface } from '@shared/api/items';
 
 import '@shared/styles/global.css';
 
 const App: FC = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pagination, setPagination] = useState<PaginationInterface>({
+    currentPage: 1,
+    has_next_page: false,
+    items: {
+      count: 1,
+      total: 1,
+      per_page: 10,
+    },
+    last_visible_page: 1,
+  });
+
   const [isFetching, setIsFetching] = useState(false);
   const [isResultEmpty, setIsResultEmpty] = useState(false);
   const [userValue, setUserValue] = useState('');
   const [inputValue, setInputValue] = useState('');
 
   const limit = 10;
-  const page = 1;
+
+  useEffect(() => {
+    fetchByName();
+  }, [currentPage]);
 
   const handleInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserValue(event.target.value.trimStart().trimEnd());
     setInputValue(event.target.value);
+  };
+
+  const prevPageHandler = () => {
+    setCurrentPage(currentPage - 1);
+  };
+  const nextPageHandler = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const setPageHandler = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   const fetchByName = async () => {
@@ -26,41 +52,23 @@ const App: FC = () => {
     setIsFetching(true);
     setIsResultEmpty(false);
 
-    const response = await fetchItems(limit, page, userValue);
+    const prevValue = localStorage.getItem('lastSearchString');
+    const search = prevValue ? prevValue : userValue;
+
+    const response = await fetchItems(limit, currentPage, search);
 
     if (response?.data.data && response?.data.data.length > 0) {
       localStorage.setItem('lastSearchString', userValue);
       setTimeout(() => {
         setItems(response?.data.data);
+        setPagination(response.data.pagination);
         setIsFetching(false);
-      }, 3000);
+      }, 1500);
     } else {
       setIsFetching(false);
       setIsResultEmpty(true);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const valueFromLocalStorage: string = localStorage.getItem('lastSearchString')!;
-
-      setIsFetching(true);
-      setInputValue(valueFromLocalStorage);
-
-      const response = valueFromLocalStorage
-        ? await fetchItems(limit, page, valueFromLocalStorage)
-        : await fetchItems();
-
-      setTimeout(() => {
-        if (response) {
-          setItems(response?.data.data);
-          setIsFetching(false);
-        }
-      }, 3000);
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <ErrorBoundary>
@@ -69,7 +77,16 @@ const App: FC = () => {
         onClickNewName={fetchByName}
         inputValue={inputValue}
       />
-      <SearchPage isFetching={isFetching} isResultEmpty={isResultEmpty} items={items} />
+      <SearchPage
+        isFetching={isFetching}
+        isResultEmpty={isResultEmpty}
+        items={items}
+        pagination={pagination}
+        currentPage={currentPage}
+        setCurrentPage={setPageHandler}
+        onClickNext={nextPageHandler}
+        onClickPrev={prevPageHandler}
+      />
     </ErrorBoundary>
   );
 };

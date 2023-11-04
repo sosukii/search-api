@@ -1,17 +1,32 @@
 import { FC } from 'react';
 import { ItemCard } from '@entities/ItemCard';
 import { Loader } from '@shared/ui/Loader';
-import { Item } from '@shared/api/items';
+import { Item, Pagination as PaginationInterface } from '@shared/api/items';
 import css from './style.module.css';
 import '@shared/styles/global.css';
+import { Pagination } from '@features/pagination';
 
 interface Props {
   items: Item[];
+  pagination: PaginationInterface;
   isFetching: boolean;
   isResultEmpty: boolean;
+  currentPage: number;
+  setCurrentPage: (number: number) => void;
+  onClickPrev?: () => void;
+  onClickNext?: () => void;
 }
 
-export const SearchPage: FC<Props> = ({ items, isFetching, isResultEmpty }) => {
+export const SearchPage: FC<Props> = ({
+  items,
+  pagination,
+  isFetching,
+  isResultEmpty,
+  currentPage,
+  setCurrentPage,
+  onClickNext,
+  onClickPrev,
+}) => {
   const renderItems = () => {
     return items.map((item: Item) => (
       <ItemCard
@@ -29,6 +44,13 @@ export const SearchPage: FC<Props> = ({ items, isFetching, isResultEmpty }) => {
 
   return (
     <div className="container">
+      <Pagination
+        data={pagination}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        onClickNext={onClickNext}
+        onClickPrev={onClickPrev}
+      />
       <div className={css.wrapper}>
         {isFetching ? (
           <Loader />

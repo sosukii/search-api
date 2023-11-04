@@ -14,20 +14,21 @@ export interface Item {
     };
   };
 }
+export interface Pagination {
+  current_page: number;
+  has_next_page: boolean;
+  items: {
+    count: number;
+    total: number;
+    per_page: number;
+  };
+  last_visible_page: number;
+}
 
-interface ItemsResponse {
+export interface ItemsResponse {
   data: {
     data: Item[];
-    pagination: {
-      current_page: number;
-      has_next_page: boolean;
-      items: {
-        count: number;
-        total: number;
-        per_page: number;
-      };
-      last_visible_page: number;
-    };
+    pagination: Pagination;
   };
   statusText: string;
 }
@@ -35,19 +36,19 @@ interface ItemsResponse {
 export async function fetchItems(
   limit: number | string = 10,
   page: number | string = 1,
-  animeTitle?: string
+  animeTitle: string = ''
 ): Promise<ItemsResponse | null> {
   try {
     const head = animeTitle ? SEARCH_URL : BASE_URL;
-    const tail = animeTitle ? `q=${animeTitle}` : `limit=${limit}&page=${page}`;
+    const search = `q=${animeTitle}`;
+    const queries = `limit=${limit}&page=${page}`;
 
     const response: ItemsResponse = await axios({
-      url: `${head}?${tail}`,
+      url: `${head}?${search}&${queries}`,
       maxBodyLength: Infinity,
       headers: {},
       method: 'get',
     });
-
     return response;
   } catch (error) {
     return null;
