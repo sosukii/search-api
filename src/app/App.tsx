@@ -28,7 +28,7 @@ const App: FC = () => {
 
   useEffect(() => {
     fetchByName();
-  }, [currentPage, itemsPerPage]);
+  }, [currentPage]);
 
   const handleInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserValue(event.target.value.trimStart().trimEnd());
@@ -36,6 +36,7 @@ const App: FC = () => {
   };
   const handleItemsPerPageChange = (value: number) => {
     setItemsPerPage(value);
+    setCurrentPage(1);
   };
 
   const prevPageHandler = () => {
