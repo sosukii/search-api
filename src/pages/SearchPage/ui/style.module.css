@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.content {
+  display: flex;
+}
+
+.details {
+  border: 2px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  max-width: 300px;
+  height: min-content;
+}
