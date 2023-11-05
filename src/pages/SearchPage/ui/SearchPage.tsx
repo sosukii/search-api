@@ -34,7 +34,27 @@ export const SearchPage: FC<Props> = ({
   onClickPrev,
 }) => {
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState<Item>({});
+  const [selectedItem, setSelectedItem] = useState<Item>({
+    mal_id: 0,
+    title: '',
+    year: 0,
+    duration: '',
+    episodes: 0,
+    favorites: 0,
+    images: {
+      jpg: {
+        image_url: '',
+      },
+    },
+    rating: '',
+    season: '',
+    source: '',
+    status: '',
+    trailer: {
+      embed_url: '',
+    },
+    synopsis: '',
+  });
   const [showDetails, setShowDetails] = useState(false);
 
   const handleItemClick = (item: Item) => {

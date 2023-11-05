@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
 interface Props {
-  status: string;
-  synopsis: string;
-  onCloseDetails: () => void;
-  id: number;
+  status?: string;
+  synopsis?: string;
+  onCloseDetails?: () => void;
+  id?: number;
 }
 
 export const ItemCardDetails: FC<Props> = ({
