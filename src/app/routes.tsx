@@ -11,7 +11,7 @@ export const Router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'about_character/:characterId',
+        path: 'card/:malId',
         element: <ItemCardDetails />,
         loader: () => <Loader />,
       },

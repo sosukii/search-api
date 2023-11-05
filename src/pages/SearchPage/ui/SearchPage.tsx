@@ -1,10 +1,12 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { ItemCard } from '@entities/ItemCard';
 import { Loader } from '@shared/ui/Loader';
 import { Item, Pagination as PaginationInterface } from '@shared/api/items';
-import css from './style.module.css';
+import styles from './style.module.css';
 import '@shared/styles/global.css';
 import { Pagination } from '@features/pagination';
+import { useNavigate } from 'react-router-dom';
+import { ItemCardDetails } from '@entities/ItemCardDetails';
 
 interface Props {
   items: Item[];
@@ -31,6 +33,19 @@ export const SearchPage: FC<Props> = ({
   onClickNext,
   onClickPrev,
 }) => {
+  const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState<Item>({});
+  const [showDetails, setShowDetails] = useState(false);
+
+  const handleItemClick = (item: Item) => {
+    setSelectedItem(item);
+    setShowDetails(true);
+    navigate(`/card/${item.mal_id}`);
+  };
+  const onCloseDetails = () => {
+    setShowDetails(false);
+    navigate('');
+  };
   const renderItems = () => {
     return items.map((item: Item) => (
       <ItemCard
@@ -42,6 +57,7 @@ export const SearchPage: FC<Props> = ({
         episodes={item.episodes}
         favorites={item.favorites}
         images={item.images}
+        onClick={() => handleItemClick(item)}
       />
     ));
   };
@@ -60,14 +76,28 @@ export const SearchPage: FC<Props> = ({
         />
       )}
 
-      <div className={css.wrapper}>
-        {isFetching ? (
-          <Loader />
-        ) : !isResultEmpty ? (
-          renderItems()
-        ) : (
-          'We have nothing for this request...'
-        )}
+      <div className={styles.content}>
+        <div className={styles.wrapper}>
+          {isFetching ? (
+            <Loader />
+          ) : !isResultEmpty ? (
+            renderItems()
+          ) : (
+            'We have nothing for this request...'
+          )}
+        </div>
+        <div className={styles.details}>
+          {showDetails ? (
+            <ItemCardDetails
+              synopsis={selectedItem?.synopsis}
+              status={selectedItem?.status}
+              onCloseDetails={onCloseDetails}
+              id={selectedItem?.mal_id}
+            />
+          ) : (
+            ''
+          )}
+        </div>
       </div>
     </div>
   );

@@ -13,6 +13,14 @@ export interface Item {
       image_url: string;
     };
   };
+  rating: string;
+  season: string;
+  source: string;
+  status: string;
+  trailer: {
+    embed_url: string;
+  };
+  synopsis: string;
 }
 export interface Pagination {
   current_page: number;

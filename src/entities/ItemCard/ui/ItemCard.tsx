@@ -13,13 +13,14 @@ type Props = {
       image_url: string;
     };
   };
+  onClick: () => void;
 };
 
 export const ItemCard: FC<Props> = (props) => {
-  const { mal_id, title, year, duration, episodes, favorites, images } = props;
+  const { mal_id, title, year, duration, episodes, favorites, images, onClick } = props;
 
   return (
-    <div className={css.card}>
+    <div className={css.card} onClick={onClick}>
       <h2 className={css.title}>{title}</h2>
       <div className={css.id}>id: {mal_id}</div>
       <div className={css.imageWrapper}>
