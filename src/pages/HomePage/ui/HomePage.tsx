@@ -5,7 +5,7 @@ import { ErrorBoundary } from '@shared/ui/ErrorBoundary';
 import { fetchItems, Item, Pagination as PaginationInterface } from '@shared/api/items';
 
 import '@shared/styles/global.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const HomePage = () => {
   const [userValue, setUserValue] = useState('');
@@ -26,7 +26,23 @@ export const HomePage = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [isResultEmpty, setIsResultEmpty] = useState(false);
 
+  const [searchParams] = useSearchParams({
+    q: '',
+    limit: '10',
+    page: '1',
+  });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const newQuery = searchParams.get('q') || '';
+    const newLimit = parseInt(searchParams.get('limit') || '10', 10);
+    const newPage = parseInt(searchParams.get('page') || '1', 10);
+
+    setUserValue(newQuery);
+    setItemsPerPage(newLimit);
+    setCurrentPage(newPage);
+    fetchByName();
+  }, [searchParams]);
 
   useEffect(() => {
     fetchByName();
