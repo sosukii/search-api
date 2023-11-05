@@ -37,27 +37,22 @@ export const HomePage = () => {
     const newQuery = searchParams.get('q') || '';
     const newLimit = parseInt(searchParams.get('limit') || '10', 10);
     const newPage = parseInt(searchParams.get('page') || '1', 10);
-
     setUserValue(newQuery);
     setItemsPerPage(newLimit);
     setCurrentPage(newPage);
     fetchByName();
   }, [searchParams]);
 
-  useEffect(() => {
-    fetchByName();
-  }, [currentPage, itemsPerPage]);
-
   const handleInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserValue(event.target.value.trimStart().trimEnd());
     setInputValue(event.target.value);
   };
   const prevPageHandler = () => {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage((prev) => prev - 1);
     navigate(`?q=${userValue}&limit=${itemsPerPage}&page=${currentPage - 1}`);
   };
   const nextPageHandler = () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage((prev) => prev + 1);
     navigate(`?q=${userValue}&limit=${itemsPerPage}&page=${currentPage + 1}`);
   };
   const setPageHandler = (pageNumber: number) => {
